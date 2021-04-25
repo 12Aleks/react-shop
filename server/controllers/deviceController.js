@@ -1,7 +1,7 @@
 const uuid = require('uuid')
 //uuid - генерирует рандомные id файлов которые идут как название файла npm i uuid
 const path = require('path') //модуль из node.js - генерируем путь с его помошью
-const {Device} = require('../models/models')
+const {Device, DeviceInfo} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class DeviceController {
@@ -11,6 +11,18 @@ class DeviceController {
             const {img} = req.files
             let fileName = uuid.v4() + ".jpg"
             img.mv(path.resolve(__dirname, '..', 'static', fileName)) // сформированный файл перемешаем в папку static
+
+            if(info){
+                info = JSON.parse(info)
+                info.forEach( i => {
+                    DeviceInfo.create({
+                        title: i.title,
+                        description: i.description,
+                        deviceId: device.id
+                    })
+                })
+            }
+
 
             const device = await Device.create({name, price, brandId, typeId, img: fileName});
             return res.json(device)
@@ -43,8 +55,14 @@ class DeviceController {
     }
 
     async getOne(req, res) {
-
-
+        const {id} = req.params //получаем id каждого устройства через params (указан этот параметр в routers -> deviceRouter.js
+        const device = await Device.findOne(
+            {
+                where: {id},
+                include: [{model: DeviceInfo, as : 'info'}]
+            }
+        )
+        return res.json(device)
     }
 }
 
