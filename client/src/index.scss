@@ -1,0 +1,10 @@
+$color-white: #fff;
+
+nav.navbar{
+  a.app-name.nav-link, a.nav-link{
+    color: $color-white !important;
+  }
+  a.app-name.nav-link{
+    font-size: 20px;
+  }
+}
