@@ -1,4 +1,8 @@
 $color-white: #fff;
+$color-gainsboro: #e2e2e2;
+$color-darkgray: #989898;
+$color-dark: #343a40;
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap');
 
 nav.navbar{
   a.app-name.nav-link, a.nav-link{
@@ -6,5 +10,45 @@ nav.navbar{
   }
   a.app-name.nav-link{
     font-size: 20px;
+  }
+}
+
+.auth{
+
+  .card{
+    max-width: 600px;
+    width: 100%;
+    padding: 20px 15px;
+    h2{
+      font:300 20px/20px Lato;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    button, .btn{
+      font:300 16px/20px Lato;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      max-width: 275px;
+      width: 100%;
+      max-height: 34px;
+      padding: 5px;
+    }
+  }
+}
+
+.shop{
+  .list-group{
+    .list-group-item{
+      cursor: pointer;
+    }
+    .list-group-item.active {
+      z-index: 2;
+      color: $color-white;
+      background-color: $color-dark;
+      border-color: $color-dark;
+    }
+  }
+  div.card{
+    cursor: pointer;
   }
 }
