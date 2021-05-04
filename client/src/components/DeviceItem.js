@@ -1,10 +1,14 @@
 import React from 'react';
 import {Card, Col, Image} from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import {DEVICE_ROUTE} from "../utils/consts";
 
 const DeviceItem = ({device}) => {
+    let history = useHistory();
+    // console.log(history)
     return (
         <Col md={3}>
-            <Card border={'light'}>
+            <Card border={'light'} onClick={() => history.push(DEVICE_ROUTE + '/' + device.id)}>
                 <Image src={device.img}/>
                 <div className="pt-3 d-flex justify-content-between">
                     <div className="text-black-50 text-uppercase">Name</div>
