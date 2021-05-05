@@ -1,5 +1,6 @@
 import React from 'react';
-import {Col, Container, Image, Row} from "react-bootstrap";
+import {Button, Card, Col, Container, Image, Row} from "react-bootstrap";
+import star from '../asets/images/star.png'
 
 const DevicePage = () => {
     const device = {
@@ -16,15 +17,21 @@ const DevicePage = () => {
                     <Image src={device.img}/>
                 </Col>
                 <Col md={4}>
-                    <Row  className='d-flex flex-column align-items-center justify-content-center'>
+                    <Row className='d-flex flex-column align-items-center justify-content-center'>
                         <h2>{device.name}</h2>
-                        <div className='d-flex align-items-center justify-content-center position-relative'>
-                            <span>&#9734;</span>
+                        <div className='star d-flex align-items-center justify-content-center position-relative'
+                             style={{background: `url(${star}) no-repeat center center`, backgroundSize: 'cover'}}
+                        >
                             {device.rating}
                         </div>
                     </Row>
                 </Col>
-                <Col md={4}></Col>
+                <Col md={4}>
+                    <Card className='price d-flex flex-column align-items-center justify-content-around'>
+                        <h3>{device.price} zl.</h3>
+                        <Button variant={'outline-dark'}>Add to basket</Button>
+                    </Card>
+                </Col>
             </Row>
         </Container>
     );

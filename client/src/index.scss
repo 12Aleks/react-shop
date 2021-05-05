@@ -73,12 +73,17 @@ nav.navbar{
       display: block;
       margin: 15px auto;
     }
-    div{
-      span{
-
-        font-size: 20rem;
-        line-height: 30px;
-      }
+    div.star{
+      width: 260px;
+      height: 240px;
+      font-size: 64px;
+      color: $color-darkgray;
+    }
+    div.card.price{
+      max-width: 300px;
+      height: 300px;
+      width: 100%;
+      border: 5px solid $color-darkgray;
     }
   }
 }
