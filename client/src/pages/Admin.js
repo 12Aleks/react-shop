@@ -1,10 +1,17 @@
 import React from 'react';
+import {Button, Col, Container, Row} from "react-bootstrap";
 
 const Admin = () => {
     return (
-        <div>
-            Admin
-        </div>
+        <Container>
+            <Row>
+                <Col>
+                    <Button></Button>
+                    <Button></Button>
+                    <Button></Button>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 
