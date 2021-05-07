@@ -40,12 +40,24 @@ nav.navbar{
   .list-group{
     .list-group-item{
       cursor: pointer;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
     }
     .list-group-item.active {
       z-index: 2;
       color: $color-white;
       background-color: $color-dark;
       border-color: $color-dark;
+    }
+  }
+  .modelButton{
+    font-size: 12px;
+    letter-spacing: 1.3px;
+    &:hover{
+      background: $color-dark;
+      transition: all .5s;
+      color: $color-white;
     }
   }
   div.card{
