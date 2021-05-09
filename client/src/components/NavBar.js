@@ -13,7 +13,7 @@ const NavBar = observer(() => {
     return (
         <Navbar bg="dark" variant="dark">
             <Container>
-                <NavLink className='app-name' to={SHOP_ROUTE}>DeviceShop :)</NavLink>
+                <NavLink className='app-name ' to={SHOP_ROUTE}>DeviceShop</NavLink>
                 {user._isAuth ?
                     <Nav className="ml-auto">
                         <Button variant={'outline-light'} className='mr-2' onClick={() => history.push(ADMIN_ROUTE)}>Admin

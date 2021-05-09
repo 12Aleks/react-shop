@@ -4,28 +4,35 @@ $color-darkgray: #989898;
 $color-dark: #343a40;
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap');
 
-nav.navbar{
-  a.app-name.nav-link, a.nav-link{
+p, a, h1, h2, h3, h4, h5, h6, div, span {
+  font-family: Lato, sans-serif;
+}
+
+nav.navbar {
+  a.app-name.nav-link, a.nav-link {
     color: $color-white !important;
   }
-  a.app-name.nav-link{
-    font-size: 20px;
+
+  a.app-name.nav-link {
+    font: 300 26px/26px Lato;
   }
 }
 
-.auth{
+.auth {
 
-  .card{
+  .card {
     max-width: 600px;
     width: 100%;
     padding: 20px 15px;
-    h2{
-      font:300 20px/20px Lato;
+
+    h2 {
+      font: 300 20px/20px Lato;
       text-transform: uppercase;
       letter-spacing: 1.5px;
     }
-    button, .btn{
-      font:300 16px/20px Lato;
+
+    button, .btn {
+      font: 300 16px/20px Lato;
       text-transform: uppercase;
       letter-spacing: 1.5px;
       max-width: 275px;
@@ -36,14 +43,15 @@ nav.navbar{
   }
 }
 
-.shop{
-  .list-group{
-    .list-group-item{
+.shop {
+  .list-group {
+    .list-group-item {
       cursor: pointer;
       font-size: 14px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
     }
+
     .list-group-item.active {
       z-index: 2;
       color: $color-white;
@@ -51,24 +59,29 @@ nav.navbar{
       border-color: $color-dark;
     }
   }
-  .modelButton{
+
+  .modelButton {
     font-size: 12px;
     letter-spacing: 1.3px;
-    &:hover{
+
+    &:hover {
       background: $color-dark;
       transition: all .5s;
       color: $color-white;
     }
   }
-  div.card{
+
+  div.card {
     cursor: pointer;
   }
-  .deviceList{
-    div.card{
+
+  .deviceList {
+    div.card {
       padding: 10px;
       max-width: 180px;
       margin-top: 15px;
-      img{
+
+      img {
         width: 100%;
         height: auto;
       }
@@ -76,22 +89,25 @@ nav.navbar{
   }
 }
 
-.device{
+.device {
   margin-top: 15px;
-  div{
-    img{
+
+  div {
+    img {
       max-width: 300px;
       height: auto;
       display: block;
       margin: 15px auto;
     }
-    div.star{
+
+    div.star {
       width: 240px;
       height: 240px;
       font-size: 64px;
       color: $color-darkgray;
     }
-    div.card.price{
+
+    div.card.price {
       max-width: 300px;
       height: 300px;
       width: 100%;

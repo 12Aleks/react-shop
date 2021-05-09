@@ -2,8 +2,7 @@ import {makeAutoObservable} from "mobx";
 
 export default class UserStore{
     constructor(){
-        this._isAuth = true;
-        this.test = 'Hello react'
+        this._isAuth = false
         this._user = {}
         makeAutoObservable(this) // mobx sledit za izmeneniami this i pri ich izmenenii pererendyrivaet komponenty
     }
@@ -20,7 +19,7 @@ export default class UserStore{
     get isAuth(){
         return this._isAuth
     }
-    get isUser(){
+    get user() {
         return this._user
     }
 }

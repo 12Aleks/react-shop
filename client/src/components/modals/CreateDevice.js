@@ -14,6 +14,10 @@ const CreateDevice = ({show, onHide}) => {
         }])
     }
 
+    const removeInfo = (number) => {
+        setInfo(info.filter(info => info.number !== number))
+    }
+
     return (
         <Modal
             show={show}
@@ -60,7 +64,7 @@ const CreateDevice = ({show, onHide}) => {
                             onClick={addInfo}>Add new characteristics</Button>
                     {
                         info.map(i => (
-                            <Row className='mt-3'>
+                            <Row className='mt-3' key={i.number}>
                                 <Col md={4}>
                                     <Form.Control
                                         placeholder='Enter characteristic title'
@@ -72,7 +76,7 @@ const CreateDevice = ({show, onHide}) => {
                                     />
                                 </Col>
                                 <Col md={4}>
-                                   <Button variant='outline-danger'>Delete</Button>
+                                   <Button variant='outline-danger' onClick={() => removeInfo(i.number)}>Delete</Button>
                                 </Col>
                             </Row>
                         ))
