@@ -53,15 +53,13 @@ const Auth = observer(() => {
                     <Row>
                         <Col className='d-flex justify-content-between align-items-center'>
                             {isLogin ?
-                                <NavLink to={REGISTRATION_ROUTE}
-                                         className="btn btn-outline-info w-50 mt-4 align-self-end"
-                                >Registration
-                                </NavLink>
+                                <div className='mt-4'>
+                                    Do you have an account? <NavLink to={REGISTRATION_ROUTE}>Sign up!</NavLink>
+                                </div>
                                 :
-                                <NavLink to={LOGIN_ROUTE}
-                                         className="btn btn-outline-info w-50 mt-4 align-self-end"
-                                >Log in
-                                </NavLink>
+                                <div className='mt-4'>
+                                    You already have an account? <NavLink to={LOGIN_ROUTE}>Please sign in!</NavLink>
+                                </div>
                             }
                                 <Button className="mt-4 w-50 align-self-end" variant={'outline-success'}
                                     onClick={click}>
