@@ -9,7 +9,7 @@ const DeviceItem = ({device}) => {
     return (
         <Col md={3}>
             <Card border={'light'} onClick={() => history.push(DEVICE_ROUTE + '/' + device.id)}>
-                <Image src={device.img}/>
+                <Image src={process.env.REACT_APP_URL + device.img}/>
                 <div className="pt-3 d-flex justify-content-between">
                     <div className="text-black-50 text-uppercase">Name</div>
                     <div>{device.rating} <span>&#9734;</span></div>

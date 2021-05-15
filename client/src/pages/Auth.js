@@ -19,19 +19,17 @@ const Auth = observer(() => {
         try{
             let data;
             if (isLogin) {
-                // data = await login(email, password);
+                data = await login(email, password);
             } else {
-                // data = await registration(email, password);
+                data = await registration(email, password);
             }
+            console.log('Auth',data)
             user.setUser(user)
             user.setIsAuth(true)
             history.push(SHOP_ROUTE)
         }catch (e) {
             alert(e.response.data.message)
         }
-
-
-
 
     }
     return (
@@ -41,11 +39,12 @@ const Auth = observer(() => {
                 <h2 className="m-auto pt-1s">{isLogin ? 'Authorization' : 'Registration'}</h2>
                 <Form className='d-flex flex-column'>
                     <Form.Control className='mt-4'
-                                  placeholder='Your name'
+                                  placeholder='Enter your email'
                                   value={email}
-                                  onChange={e => setEmail(e.target.value)}/>
+                                  onChange={e => setEmail(e.target.value)}
+                    />
                     <Form.Control className='mt-3'
-                                  placeholder='Your password'
+                                  placeholder='Enter your password'
                                   type='password'
                                   value={password}
                                   onChange={e => setPassword(e.target.value)}
@@ -65,7 +64,6 @@ const Auth = observer(() => {
                                     onClick={click}>
                                     {isLogin ? 'Log in': 'Registration'}
                                 </Button>
-
                         </Col>
                     </Row>
                 </Form>

@@ -1,10 +1,9 @@
-
 import axios from "axios";
 
 const $host = axios.create({
     baseURL: process.env.REACT_APP_URL
 })
-console.log(process.env.REACT_APP_URL)
+
 
 const $authHost = axios.create({
     baseURL: process.env.REACT_APP_URL
@@ -17,7 +16,5 @@ const authInterceptor = config => {
 
 $authHost.interceptors.request.use(authInterceptor)
 
-export {
-    $host,
-    $authHost
-}
+export { $host}
+export {$authHost}

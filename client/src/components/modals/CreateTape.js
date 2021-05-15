@@ -1,13 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form, Modal, Button} from "react-bootstrap";
+import {createType} from "../../http/deviceAPI";
 
-const CreateTape = ({show, onHide}) => {
+const CreateType = ({show, onHide}) => {
+    const [value, setValue] = useState('')
+
+    const addType = () => {
+        createType({name: value}).then(data => {
+            setValue('')
+            onHide()
+        })
+    }
+
     return (
         <Modal
             show={show}
             onHide={onHide}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
             centered
         >
             <Modal.Header closeButton>
@@ -17,15 +25,19 @@ const CreateTape = ({show, onHide}) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                  <Form.Control placeholder={'Enter type title'} />
+                  <Form.Control
+                      placeholder={'Enter type title'}
+                      value={value}
+                      onChange={e => setValue(e.target.value)}
+                  />
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant='outline-danger' onClick={onHide}>Add type</Button>
+                <Button variant='outline-danger' onClick={addType}>Add type</Button>
                 <Button variant='outline-success' onClick={onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
     );
 };
 
-export default CreateTape;
+export default CreateType;
