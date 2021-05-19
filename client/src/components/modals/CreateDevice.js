@@ -1,10 +1,29 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Col, Form, Modal, Button, Dropdown, Row} from "react-bootstrap";
 import {Context} from "../../index";
+import {fetchBrands, fetchDevices, fetchTypes} from "../../http/deviceAPI";
+import {observer} from "mobx-react-lite";
 
-const CreateDevice = ({show, onHide}) => {
+const CreateDevice = observer(({show, onHide}) => {
     const {device} = useContext(Context)
     const [info, setInfo] = useState([])
+
+    //form
+    const [name, setName] = useState('');
+    const [price, setPrice] = useState(0);
+    const [file, setFile] = useState(null);
+
+
+
+    useEffect(() => {
+        fetchTypes().then(data => device.setTypes(data))
+        fetchBrands().then(data => device.setBrands(data))
+        fetchDevices().then(data => device.setDevices(data.rows))
+    }, [])
+
+    const selectFile = (e) => {
+        setFile(e.target.files[0])
+    }
 
     const addInfo = () => {
         setInfo([...info, {
@@ -35,30 +54,48 @@ const CreateDevice = ({show, onHide}) => {
             <Modal.Body>
                 <Form>
                     <Dropdown className='mt-3' variant='secondary'>
-                        <Dropdown.Toggle variant='secondary' className='w-100 font-weight-light text-uppercase'>Select
-                            type</Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {
-                                device.types.map(type => (
-                                    <Dropdown.Item key={type.id}>{type.name}</Dropdown.Item>
-                                ))
-                            }
+                        <Dropdown.Toggle variant='secondary' className='w-100 font-weight-light text-uppercase'>
+                            {device.selectedType.name || 'Select type'} </Dropdown.Toggle>
+                        <Dropdown.Menu className='w-100 text-uppercase'>
+                            {device.types.map(type =>
+                                <Dropdown.Item
+                                    onClick={() => device.setSelectedType(type)}
+                                    key={type.id}
+                                >
+                                    {type.name}
+                                </Dropdown.Item>
+                            )}
                         </Dropdown.Menu>
                     </Dropdown>
                     <Dropdown className='mt-3'>
-                        <Dropdown.Toggle variant='secondary' className='w-100 font-weight-light text-uppercase'>Select
-                            brand</Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {
-                                device.brands.map(brand => (
-                                    <Dropdown.Item key={brand.id}>{brand.name}</Dropdown.Item>
-                                ))
-                            }
+                        <Dropdown.Toggle variant='secondary' className='w-100 font-weight-light text-uppercase'>
+                            {device.selectedBrand.name || 'Select brand'}</Dropdown.Toggle>
+                        <Dropdown.Menu className='w-100 text-uppercase'>
+                            {device.brands.map(brand =>
+                                <Dropdown.Item
+                                    onClick={() => device.setSelectedBrand(brand)}
+                                    key={brand.id}
+                                >
+                                    {brand.name}
+                                </Dropdown.Item>
+                            )}
                         </Dropdown.Menu>
                     </Dropdown>
-                    <Form.Control className='mt-3' placeholder='Enter device title' type='text'/>
-                    <Form.Control className='mt-3' placeholder='Enter device price' type='number'/>
-                    <Form.Control className='mt-3' type='file'/>
+                    <Form.Control className='mt-3'
+                                  placeholder='Enter device title'
+                                  type='text'
+                                  value={name}
+                                  onChange={e => setName(e.target.value)}
+                    />
+                    <Form.Control className='mt-3'
+                                  placeholder='Enter device price'
+                                  type='number'
+                                  value={price}
+                                  onChange={e => setPrice(Number(e.target.value))}
+                    />
+                    <Form.Control className='mt-3' type='file'
+                    onChange={selectFile}
+                    />
                     <hr/>
                     <Button variant='secondary' className='w-100 mt-3 text-uppercase font-weight-light'
                             onClick={addInfo}>Add new characteristics</Button>
@@ -92,6 +129,6 @@ const CreateDevice = ({show, onHide}) => {
             </Modal.Footer>
         </Modal>
     );
-};
+});
 
 export default CreateDevice;
