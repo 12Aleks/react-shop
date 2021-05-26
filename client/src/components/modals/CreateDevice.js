@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Col, Form, Modal, Button, Dropdown, Row} from "react-bootstrap";
 import {Context} from "../../index";
-import {fetchBrands, fetchDevices, fetchTypes} from "../../http/deviceAPI";
+import {createDevice, fetchBrands, fetchDevices, fetchTypes} from "../../http/deviceAPI";
 import {observer} from "mobx-react-lite";
 
 const CreateDevice = observer(({show, onHide}) => {
@@ -12,7 +12,6 @@ const CreateDevice = observer(({show, onHide}) => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [file, setFile] = useState(null);
-
 
 
     useEffect(() => {
@@ -37,6 +36,21 @@ const CreateDevice = observer(({show, onHide}) => {
         setInfo(info.filter(info => info.number !== number))
     }
 
+    const changeInfo = (key, value, number) => {
+        setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
+    }
+
+    const addDevice = () => {
+        const formData = new FormData()
+        formData.append('name', name)
+        formData.append('price', `${price}`)
+        formData.append('img', file)
+        formData.append('brandId', device.selectedBrand.id)
+        formData.append('typeId', device.selectedType.id)
+        formData.append('info', JSON.stringify(info))
+        createDevice(formData).then(data => onHide())
+    }
+
     return (
         <Modal
             show={show}
@@ -55,7 +69,7 @@ const CreateDevice = observer(({show, onHide}) => {
                 <Form>
                     <Dropdown className='mt-3' variant='secondary'>
                         <Dropdown.Toggle variant='secondary' className='w-100 font-weight-light text-uppercase'>
-                            {device.selectedType.name || 'Select type'} </Dropdown.Toggle>
+                            {device.selectedType.name || 'Selected type'} </Dropdown.Toggle>
                         <Dropdown.Menu className='w-100 text-uppercase'>
                             {device.types.map(type =>
                                 <Dropdown.Item
@@ -69,7 +83,7 @@ const CreateDevice = observer(({show, onHide}) => {
                     </Dropdown>
                     <Dropdown className='mt-3'>
                         <Dropdown.Toggle variant='secondary' className='w-100 font-weight-light text-uppercase'>
-                            {device.selectedBrand.name || 'Select brand'}</Dropdown.Toggle>
+                            {device.selectedBrand.name || 'Selected brand'}</Dropdown.Toggle>
                         <Dropdown.Menu className='w-100 text-uppercase'>
                             {device.brands.map(brand =>
                                 <Dropdown.Item
@@ -94,7 +108,7 @@ const CreateDevice = observer(({show, onHide}) => {
                                   onChange={e => setPrice(Number(e.target.value))}
                     />
                     <Form.Control className='mt-3' type='file'
-                    onChange={selectFile}
+                                  onChange={selectFile}
                     />
                     <hr/>
                     <Button variant='secondary' className='w-100 mt-3 text-uppercase font-weight-light'
@@ -105,15 +119,20 @@ const CreateDevice = observer(({show, onHide}) => {
                                 <Col md={4}>
                                     <Form.Control
                                         placeholder='Enter characteristic title'
+                                        value={i.title}
+                                        onChange={(e) => changeInfo('title', e.target.value, i.number)}
                                     />
                                 </Col>
                                 <Col md={4}>
                                     <Form.Control
+                                        value={i.description}
                                         placeholder='Enter characteristic description'
+                                        onChange={(e) => changeInfo('description', e.target.value, i.number)}
                                     />
                                 </Col>
                                 <Col md={4}>
-                                   <Button variant='outline-danger' onClick={() => removeInfo(i.number)}>Delete</Button>
+                                    <Button variant='outline-danger'
+                                            onClick={() => removeInfo(i.number)}>Delete</Button>
                                 </Col>
                             </Row>
                         ))
@@ -122,7 +141,7 @@ const CreateDevice = observer(({show, onHide}) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant='outline-danger' className='text-uppercase font-weight-light' onClick={onHide}>Add
+                <Button variant='outline-danger' className='text-uppercase font-weight-light' onClick={addDevice}>Add
                     device</Button>
                 <Button variant='outline-success' className='text-uppercase font-weight-light'
                         onClick={onHide}>Close</Button>
