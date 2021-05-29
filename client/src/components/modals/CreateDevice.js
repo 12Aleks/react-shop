@@ -20,10 +20,6 @@ const CreateDevice = observer(({show, onHide}) => {
         fetchDevices().then(data => device.setDevices(data.rows))
     }, [])
 
-    const selectFile = (e) => {
-        setFile(e.target.files[0])
-    }
-
     const addInfo = () => {
         setInfo([...info, {
             title: '',
@@ -38,6 +34,10 @@ const CreateDevice = observer(({show, onHide}) => {
 
     const changeInfo = (key, value, number) => {
         setInfo(info.map(i => i.number === number ? {...i, [key]: value} : i))
+    }
+
+    const selectFile = e => {
+        setFile(e.target.files[0])
     }
 
     const addDevice = () => {

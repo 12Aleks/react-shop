@@ -7,10 +7,12 @@ export default class DeviceStore {
         this._devices = []
         this._selectedType = {}
         this._selectedBrand = {}
-        makeAutoObservable(this) // mobx sledit za izmeneniami this i pri ich izmenenii pererendyrivaet komponenty
+        this._page = 1
+        this._totalCount = 0
+        this._limit = 3
+        makeAutoObservable(this)
     }
 
-    //actions kotoryje izmenajut znaczenie kak w vue
     setTypes(types) {
         this._types = types
     }
@@ -21,17 +23,21 @@ export default class DeviceStore {
         this._devices = devices
     }
 
-    //vydelenie wybrannogo typa
     setSelectedType(type) {
+        this.setPage(1)
         this._selectedType = type
     }
-
     setSelectedBrand(brand) {
+        this.setPage(1)
         this._selectedBrand = brand
     }
+    setPage(page) {
+        this._page = page
+    }
+    setTotalCount(count) {
+        this._totalCount = count
+    }
 
-
-    // getters kotoryje otprowlajut znaczenie s store kak v vue
     get types() {
         return this._types
     }
@@ -47,5 +53,13 @@ export default class DeviceStore {
     get selectedBrand() {
         return this._selectedBrand
     }
-
+    get totalCount() {
+        return this._totalCount
+    }
+    get page() {
+        return this._page
+    }
+    get limit() {
+        return this._limit
+    }
 }
